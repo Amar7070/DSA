@@ -6,9 +6,9 @@ class Solution {
                 int b = st.pop();
                 int a = st.pop();
                 if(ch.equals("+")) st.push(a + b);
-                if(ch.equals("-")) st.push(a - b);
-                if(ch.equals("*")) st.push(a * b);
-                if(ch.equals("/")) st.push(a / b);
+                else if(ch.equals("-")) st.push(a - b);
+                else if(ch.equals("*")) st.push(a * b);
+                else st.push(a / b);
             }
             else st.push(Integer.parseInt(ch));
         }
