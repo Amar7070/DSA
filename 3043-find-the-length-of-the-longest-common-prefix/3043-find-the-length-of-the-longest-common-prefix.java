@@ -1,22 +1,40 @@
+class Trie {
+    Trie[] child = new Trie[10];
+}
 class Solution {
-    public int longestCommonPrefix(int[] arr1, int[] arr2) {
-        HashSet<String> set = new HashSet<>();
-        for(int arr : arr1) {
-            String s = String.valueOf(arr);
-            String p = "";
-            for(char ch : s.toCharArray()) {
-                p += ch;
-                set.add(p);
+    Trie root = new Trie(); 
+    private void insert(int n) {
+        String s = String.valueOf(n);
+        Trie curr = root;
+        for(char ch : s.toCharArray()) {
+            int idx = ch - '0';
+            if(curr.child[idx] == null) {
+                curr.child[idx] = new Trie();
             }
+            curr = curr.child[idx];
+        }
+    }
+    private int search(int n) {
+        String s = String.valueOf(n);
+        int c = 0;
+        Trie curr = root;
+        for(char ch : s.toCharArray()) {
+            int idx = ch - '0';
+            if(curr.child[idx] == null) {
+                break;
+            }
+            c++;
+            curr = curr.child[idx];
+        }
+        return c;
+    }
+    public int longestCommonPrefix(int[] arr1, int[] arr2) {
+        for(int arr : arr1) {
+            insert(arr);
         }
         int ans = 0;
         for(int arr : arr2) {
-            String s = String.valueOf(arr);
-            String p = "";
-            for(char ch : s.toCharArray()) {
-                p += ch;
-                if(set.contains(p)) ans = Math.max(ans, p.length());
-            }
+            ans = Math.max(ans, search(arr));
         }
         return ans;
     }
