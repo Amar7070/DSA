@@ -4,12 +4,10 @@ class Solution {
         int m = mat[0].length;
         int ans = 0;
         for(int i = 0; i < n; i++) {
-            for(int j = 0; j < m; j++) {
-                if(i == j || i + j == n - 1) {
-                    ans += mat[i][j];
-                }
-            }
+            ans += mat[i][i];
+            ans += mat[i][n - i - 1];
         }
+        if(n % 2 != 0) ans -= mat[n / 2][n / 2];
         return ans;
     }
 }
