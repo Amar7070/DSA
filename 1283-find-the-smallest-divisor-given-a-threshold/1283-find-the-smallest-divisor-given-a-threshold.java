@@ -2,7 +2,7 @@ class Solution {
     private boolean inRange(int nums[], int threshold, int mid) {
         int t = 0;
         for(int i = 0; i < nums.length; i++) {
-            t += Math.ceilDiv(nums[i], mid);
+            t += (nums[i] + mid - 1) / mid;
             if(t > threshold) return false;
         }
         return true;
