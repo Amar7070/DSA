@@ -10,13 +10,13 @@ class Solution {
             int nr = nums[r];
             sum += nr;
             map.put(nr, map.getOrDefault(nr, 0) + 1);
-            while(map.get(nr) > 1 || map.size() > k) {
+            if(r - l + 1 > k) {
                 sum -= nums[l];
                 map.put(nums[l], map.get(nums[l]) - 1);
                 if(map.get(nums[l]) == 0) map.remove(nums[l]);
                 l++;
             }
-            if(map.size() == k) ans = Math.max(ans, sum);
+            if(r - l + 1 == k && map.size() == k) ans = Math.max(ans, sum);
             r++;
         }
         return ans;
