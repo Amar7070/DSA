@@ -1,14 +1,16 @@
 class Solution {
     public boolean carPooling(int[][] trips, int capacity) {
-        Arrays.sort(trips, (a, b) -> a[2] - b[2]);
-        int n = trips[trips.length - 1][2];
-        int diff[] = new int[n + 1];
+        int n = 0;
+        for (int[] trip : trips) {
+            n = Math.max(n, trip[2]);
+        }
+        int[] diff = new int[n + 1];
         for(int trip[] : trips) {
             int val = trip[0];
             int l = trip[1];
             int r = trip[2];
             diff[l] += val;
-            if(r <= n) diff[r] -= val;
+            diff[r] -= val;
         }
         int curr = 0;
         for(int i = 0; i <= n; i++) {
