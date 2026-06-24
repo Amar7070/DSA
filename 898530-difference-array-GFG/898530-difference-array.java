@@ -11,11 +11,10 @@ class Solution {
             diff[l] += val;
             if(r + 1 < n) diff[r + 1] -= val;
         }
-        for(int i = 1; i < n; i++) {
-            diff[i] += diff[i - 1];
-        }
+        int curr = 0;
         for(int i = 0; i < n; i++) {
-            ans.add(arr[i] += diff[i]);
+            curr += diff[i];
+            ans.add(arr[i] += curr);
         }
         return ans;
     }
