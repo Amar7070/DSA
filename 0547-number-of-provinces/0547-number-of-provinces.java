@@ -2,6 +2,7 @@ class Solution {
     class DSU {
         int parent[];
         int  rank[];
+        int count;
         DSU(int n) {
             parent = new int[n];
             rank = new int[n];
@@ -9,6 +10,7 @@ class Solution {
                 parent[i] = i;
                 rank[i] = 1;
             }
+            count = n;
         }
         int find(int x) {
             if(parent[x] != x) {
@@ -30,14 +32,9 @@ class Solution {
                 parent[px] = py;
                 rank[py]++;
             }
+            count--;
         }
-        int provinces(int n) {
-            HashSet<Integer> set = new HashSet<>();
-            for(int i = 0; i < n ; i++) {
-                set.add(find(i));
-            }
-            return set.size();
-        }
+        
     }
     public int findCircleNum(int[][] isConnected) {
         int n = isConnected.length;
@@ -49,7 +46,7 @@ class Solution {
                 }
             }
         }
-        return dsu.provinces(n);
+        return dsu.count;
     }
 }
 
