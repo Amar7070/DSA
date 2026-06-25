@@ -7,7 +7,7 @@ class Solution {
         }
         while(l <= r) {
             int mid = l + (r - l) / 2;
-            long total = totalHours(mid, piles);
+            long total = totalHours(mid, piles, h);
             if(total <= h) {
                 r = mid - 1;
             }
@@ -15,10 +15,11 @@ class Solution {
         }
         return l;
     }
-    private long totalHours(int speed, int[] piles) {
+    private long totalHours(int speed, int[] piles, int h) {
     long hours = 0;
     for (int pile : piles) {
         hours += (pile + speed - 1L) / speed;
+        if (hours > h) return hours;
     }
     return hours;
 }
