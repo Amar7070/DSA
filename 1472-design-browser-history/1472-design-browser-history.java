@@ -13,15 +13,17 @@ class BrowserHistory {
     }
     
     public String back(int steps) {
-        while(steps-- > 0) {
-            if(curr.size() == 1) break;
+        steps = Math.min(steps, curr.size() - 1);
+        while (steps-- > 0) {
             next.push(curr.pop());
         }
         return curr.peek();
     }
     
     public String forward(int steps) {
-        while(steps-- > 0 && !next.isEmpty()) {
+        steps = Math.min(steps, next.size());
+
+        while (steps-- > 0) {
             curr.push(next.pop());
         }
         return curr.peek();
