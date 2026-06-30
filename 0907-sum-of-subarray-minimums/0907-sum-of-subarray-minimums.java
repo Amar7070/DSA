@@ -3,26 +3,23 @@ class Solution {
     public int sumSubarrayMins(int[] arr) {
         int n = arr.length;
         Deque<Integer> st = new ArrayDeque<>();
-        ArrayList<Integer> nse = new ArrayList<>();
-        for (int i = 0; i < n; i++) nse.add(-1);
+        int nse[] = new int[n];
+        int pse[] = new int[n];
         for (int i = n - 1; i >= 0; i--) {
             while (!st.isEmpty() && arr[st.peek()] >= arr[i]) st.pop();
-            if (!st.isEmpty()) nse.set(i, st.peek());
-            else nse.set(i, n);
+            nse[i] = (!st.isEmpty()) ? st.peek() : n;
             st.push(i);
         }
         st.clear();
-        ArrayList<Integer> pse = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             while (!st.isEmpty() && arr[st.peek()] > arr[i]) st.pop();
-            if (!st.isEmpty()) pse.add(st.peek());
-            else pse.add(-1);
+            pse[i] = (!st.isEmpty()) ? st.peek() : -1;
             st.push(i);
         }
         long ans = 0;
         for (int i = 0; i < n; i++) {
-            long left = i - pse.get(i);
-            long right = nse.get(i) - i;
+            long left = i - pse[i];
+            long right = nse[i] - i;
             ans = (ans + arr[i] * (left * right % mod)) % mod;
         }
         return (int)ans;
