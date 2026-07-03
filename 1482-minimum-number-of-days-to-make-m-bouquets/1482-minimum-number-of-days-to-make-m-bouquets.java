@@ -1,19 +1,24 @@
 class Solution {
-    private boolean isPossible(int day, int[] arr, int m, int k) {
+   private boolean isPossible(int day, int[] arr, int m, int k) {
         int count = 0;
-        int nm =  0;
-        for (int i = 0; i < arr.length; i++) {
-            if(arr[i] <= day) {
+        int bouquets = 0;
+
+        for (int bloom : arr) {
+            if (bloom <= day) {
                 count++;
-            }
-            else {
-                nm += (count / k);
+                if (count == k) {
+                    bouquets++;
+                    if (bouquets == m) return true;
+                    count = 0;
+                }
+            } else {
                 count = 0;
             }
         }
-        nm += (count / k);
-        return nm >= m;
+
+        return false;
     }
+    
     public int minDays(int[] bloomDay, int m, int k) {
         int n = bloomDay.length;
         if (1L * m * k > n) return -1;
