@@ -2,13 +2,16 @@ class Solution {
     public long sumAndMultiply(int n) {
         int sum = 0;
         long mul = 0;
-        String s = String.valueOf(n);
-        for (int i = 0; i < s.length(); i++) {
-            int ch = s.charAt(i) - '0';
-            if (ch != 0) {
-                mul = mul * 10 + ch;
-                sum += ch;
+        long place = 1;
+        while (n > 0) {
+            int d = n % 10;
+
+            if (d != 0) {
+                mul += d * place;
+                sum += d;
+                place *= 10;
             }
+            n /= 10;
         }
         return mul * sum;
     }
