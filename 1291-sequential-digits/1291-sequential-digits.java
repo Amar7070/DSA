@@ -5,7 +5,8 @@ class Solution {
         for (int len = 2; len <= s.length(); len++) {
             for (int i = 0; i <= s.length() - len; i++) {
                 int curr = Integer.parseInt(s.substring(i, i + len));
-                if (curr >= low && curr <= high) {
+                if (curr > high) return ans;
+                if (curr >= low) {
                     ans.add(curr);
                 } 
             }
