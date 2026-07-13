@@ -1,0 +1,23 @@
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        ArrayList<Integer> arr = new ArrayList<>();
+        int i = 0, j = 0;
+        while (i < n1 && j < n2) {
+            if (nums1[i] < nums2[j]) arr.add(nums1[i++]);
+            else arr.add(nums2[j++]);
+        }
+        while (i < n1) arr.add(nums1[i++]);
+        while (j < n2) arr.add(nums2[j++]);
+        int n = n1 + n2;
+        if (n % 2 == 1) {
+            return arr.get(n / 2);
+        }
+        return (double)(arr.get(n / 2) + arr.get(n / 2 - 1)) / 2.0;
+    }
+}
+
+// Synced seamlessly with LeetHub Pro
+// Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
+// Get it here: https://chromewebstore.google.com/detail/bcilpkkbokcopmabingnndookdogmbna
