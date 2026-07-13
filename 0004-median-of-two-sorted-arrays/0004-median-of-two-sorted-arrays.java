@@ -2,19 +2,43 @@ class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int n1 = nums1.length;
         int n2 = nums2.length;
-        ArrayList<Integer> arr = new ArrayList<>();
         int i = 0, j = 0;
-        while (i < n1 && j < n2) {
-            if (nums1[i] < nums2[j]) arr.add(nums1[i++]);
-            else arr.add(nums2[j++]);
-        }
-        while (i < n1) arr.add(nums1[i++]);
-        while (j < n2) arr.add(nums2[j++]);
         int n = n1 + n2;
-        if (n % 2 == 1) {
-            return arr.get(n / 2);
+        int idx1 = n / 2 - 1;
+        int idx2 = n / 2;
+        int idx1el = -1, idx2el = -1;
+        int count = 0;
+        while (i < n1 && j < n2) {
+            if (nums1[i] < nums2[j]) {
+                if (count == idx1) idx1el = nums1[i];
+                if (count == idx2) idx2el = nums1[i];
+                count++;
+                i++;
+            }
+            else {
+                if (count == idx1) idx1el = nums2[j];
+                if (count == idx2) idx2el = nums2[j];
+                count++;
+                j++;
+            }
         }
-        return (double)(arr.get(n / 2) + arr.get(n / 2 - 1)) / 2.0;
+        while (i < n1) {
+            if (count == idx1) idx1el = nums1[i];
+            if (count == idx2) idx2el = nums1[i];
+            count++;
+            i++;
+        }
+        while (j < n2) {
+            if (count == idx1) idx1el = nums2[j];
+            if (count == idx2) idx2el = nums2[j];
+            count++;
+            j++;
+        }
+        
+        if (n % 2 == 1) {
+            return idx2el;
+        }
+        return (double)(idx1el + idx2el) / 2.0;
     }
 }
 
