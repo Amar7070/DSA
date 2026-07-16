@@ -1,52 +1,24 @@
 class Solution {
-    class DSU {
-        int parent[];
-        int  rank[];
-        int count;
-        DSU(int n) {
-            parent = new int[n];
-            rank = new int[n];
-            for(int i = 0; i < n; i++) {
-                parent[i] = i;
-                rank[i] = 1;
-            }
-            count = n;
-        }
-        int find(int x) {
-            if(parent[x] != x) {
-                parent[x] = find(parent[x]);
-            }
-            return parent[x];
-        }
-        void union(int x, int y) {
-            int px = find(x);
-            int py = find(y);
-            if(px == py) return;
-            if(rank[px] < rank[py]) {
-                parent[px] = py;
-            }
-            else if(rank[px] > rank[py]) {
-                parent[py] = px;
-            }
-            else {
-                parent[px] = py;
-                rank[py]++;
-            }
-            count--;
-        }
-        
-    }
     public int findCircleNum(int[][] isConnected) {
         int n = isConnected.length;
-        DSU dsu = new DSU(n);
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                if(isConnected[i][j] == 1) {
-                    dsu.union(i, j);
-                }
+        int count = 0;
+        boolean visited[] = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                dfs (i, isConnected, visited);
+                count++;
             }
         }
-        return dsu.count;
+        return count;
+    }
+
+    private void dfs (int u, int[][] isConnected, boolean[] visited) {
+        visited[u] = true;
+        for (int i = 0; i < isConnected.length; i++) {
+            if (isConnected[u][i] == 1 && !visited[i]) {
+                dfs (i, isConnected, visited);
+            }
+        }
     }
 }
 
