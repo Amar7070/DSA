@@ -4,8 +4,8 @@ class Solution {
         if (n >= 2) {
             ans += m;
             n -= 2;
+            ans += 1L * (n / 2) * (m - 1);
         }
-        ans += 1L * (n / 2) * (m - 1);
         return ans;
     }
 }
