@@ -4,13 +4,16 @@ class Solution {
         int l = 0;
         int r = ch.length - 1;
         while (l < r) {
-            if (ch[l] == x) {
+            while (l < r && ch[l] != x) l++;
+            while (l < r && ch[r] == x) r--;
+
+            if (l < r) {
                 char temp = ch[l];
                 ch[l] = ch[r];
                 ch[r] = temp;
+                l++;
                 r--;
             }
-            else l++;
         }
         return String.valueOf(ch);
     }
