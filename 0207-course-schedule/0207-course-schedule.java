@@ -1,6 +1,19 @@
 class Solution {
+    private boolean dfs (int u, List<List<Integer>> adj, int[] state) {
+        state[u] = 1;
+
+        for (int v : adj.get(u)) {
+            if (state[v] == 1) return false;
+
+            if (state[v] == 0) {
+                if (!dfs (v, adj, state)) return false;
+            }
+        }
+
+        state[u] = 2;
+        return true;
+    }
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        int indeg[] = new int[numCourses];
         List<List<Integer>> adj = new ArrayList<>();
 
         for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());
@@ -8,28 +21,17 @@ class Solution {
         for (int p[] : prerequisites) {
             int u = p[0];
             int v = p[1];
-            indeg[v]++;
             adj.get(u).add(v);
         }
-        
-        Queue<Integer> q = new ArrayDeque<>();
+        int state[] = new int[numCourses];
+
         for (int i = 0; i < numCourses; i++) {
-            if (indeg[i] == 0) q.add(i);
-        }
-
-        int count = 0;
-        while (!q.isEmpty()) {
-            int u = q.poll();
-
-            for (int v : adj.get(u)) {
-                indeg[v]--;
-                if (indeg[v] == 0) q.add(v);
+            if (state[i] == 0) {
+                if (!dfs (i, adj, state)) return false;
             }
-
-            count++;
         }
 
-        return count == numCourses;
+        return true;
     }
 }
 
