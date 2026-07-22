@@ -1,16 +1,14 @@
 class Segment {
-    int[] arr;
     int tree[];
     int n;
 
     Segment (int arr[]) {
         n = arr.length;
-        this.arr = arr;
         tree = new int[4 * n];
-        constructST (0, n - 1, 0);
+        constructST (arr, 0, n - 1, 0);
     }
     
-    int constructST (int ss, int se, int si) {
+    int constructST (int arr[], int ss, int se, int si) {
         if (ss == se) {
             tree[si] = arr[ss];
             return arr[ss];
@@ -18,7 +16,7 @@ class Segment {
 
         int mid = (ss + se) / 2;
 
-        tree[si] = Math.max (constructST (ss, mid, 2 * si + 1), constructST (mid + 1, se, 2 * si + 2));
+        tree[si] = Math.max (constructST (arr, ss, mid, 2 * si + 1), constructST (arr, mid + 1, se, 2 * si + 2));
 
         return tree[si];
     }
