@@ -14,8 +14,8 @@
  * }
  */
 class Solution {
-    HashMap<Integer, Integer> preMap;
-    HashMap<Integer, Integer> postMap;
+    Map<Integer, Integer> preMap;
+    Map<Integer, Integer> postMap;
     public TreeNode constructFromPrePost(int[] preorder, int[] postorder) {
         int n = preorder.length;
 
