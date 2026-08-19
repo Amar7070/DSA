@@ -4,7 +4,6 @@ class Solution {
         Arrays.sort (reservedSeats, (a, b) -> a[0] - b[0]);
         int distinctRow = 0;
         int ans = 0;
-        System.out.println(Arrays.deepToString(reservedSeats));
         for (int i = 0; i < m; ) {
             int row = reservedSeats[i][0];
             boolean[] space = new boolean[3];
