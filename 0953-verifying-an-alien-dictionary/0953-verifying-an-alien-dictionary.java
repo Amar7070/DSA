@@ -16,18 +16,16 @@ class Solution {
 
     private boolean checkOrder (String s1, String s2) {
         int i = 0;
-        int j = 0;
-        while (i < s1.length() && j < s2.length()) {
+        while (i < s1.length() && i < s2.length()) {
             char c1 = s1.charAt(i);
-            char c2 = s2.charAt(j);
+            char c2 = s2.charAt(i);
             if (c1 != c2) {
                 if (map.get(c1) > map.get(c2)) return false;
                 else return true;
             }
             i++;
-            j++; 
         }
-        if (j == s2.length() && i < s1.length()) return false;
+        if (i == s2.length() && i < s1.length()) return false;
         return true;
     }
 }
