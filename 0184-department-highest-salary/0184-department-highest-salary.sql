@@ -4,8 +4,7 @@ FROM Employee e JOIN Department d
 ON e.departmentId = d.id
 WHERE e.salary = (
     SELECT MAX(salary) AS salary FROM Employee
-    GROUP BY departmentId
-    HAVING d.id = departmentId
+    WHERE d.id = departmentId
 );
 
 -- Synced seamlessly with LeetHub Pro
