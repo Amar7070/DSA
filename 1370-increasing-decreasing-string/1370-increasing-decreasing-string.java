@@ -8,31 +8,25 @@ class Solution {
         for (char ch : s.toCharArray()) {
             freq[ch - 'a']++;
         }
-
-        while (true) {
-            boolean flag = true;
-
+        int count = 0;
+        while (count < n) {
             for (int i = 0; i < 26; i++) {
                 if (freq[i] > 0) {
                     char ch = (char)(i + 'a');
                     sb.append (ch);
                     freq[i]--;
-                    flag = false;
+                    count++;
                 }
             }
-
-            if (flag) break;
 
             for (int i = 25; i >= 0; i--) {
                 if (freq[i] > 0) {
                     char ch = (char)(i + 'a');
                     sb.append (ch);
                     freq[i]--;
-                    flag = true;
+                    count++;
                 }
             }
-
-            if (!flag) break;
         }
         return sb.toString();
     }
