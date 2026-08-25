@@ -1,13 +1,11 @@
 class Solution {
     public int missingMultiple(int[] nums, int k) {
-        boolean haveMultiple[] = new boolean[101];
-        for (int num : nums) haveMultiple[num] = true;
-        int i = 1;
-        int mul = k;
-        while (mul <= 100 && haveMultiple[mul]) {
-            mul = k * i;
-            i++; 
-        } 
+        boolean isMultiple[] = new boolean[101];
+        for (int num : nums) isMultiple[num] = true;
+        int mul;
+        for (mul = k; mul <= 100; mul += k) {
+            if (!isMultiple[mul]) break; 
+        }
         return mul;
     }
 }
