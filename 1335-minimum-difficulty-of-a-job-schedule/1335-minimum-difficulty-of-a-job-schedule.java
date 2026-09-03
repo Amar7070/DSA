@@ -1,41 +1,63 @@
 class Solution {
-    int res = Integer.MAX_VALUE;
     public int minDifficulty(int[] jobDifficulty, int d) {
         int n = jobDifficulty.length;
         if (d > n) return -1;
 
-        int memo[][] = new int[n][d + 1];
+        int memo[][] = new int[n + 1][d + 1];
 
-        for (int i = 0; i < n; i++) Arrays.fill(memo[i], -1);
+        // memo[i][day] = minimum difficulty to schedule first i jobs in exactly 'day' days
 
-        return solve (0, jobDifficulty, d, memo);
-    }
+        for (int i = 0; i <= n; i++) Arrays.fill(memo[i], Integer.MAX_VALUE);
 
-    private int solve (int idx, int[] jobDiff, int d, int[][] memo) {
-        int n = jobDiff.length;
-        if (d == 1) {
-            int max = 0;
-            for (int i = idx; i < n; i++) {
-                max = Math.max (max, jobDiff[i]);
-            }
-            return max;
+        int max = 0;
+        for (int i = 1; i <= n; i++) {
+            max = Math.max (max, jobDifficulty[i - 1]);
+
+            memo[i][1] = max; 
         }
 
-        if (memo[idx][d] != -1) return memo[idx][d];
+        for (int day = 2; day <= d; day++) {
 
-        int maxDiff = 0;
-        int totalMinDiff = Integer.MAX_VALUE;
+            for (int i = day; i <= n; i++) {
 
-        for (int i = idx; i <= n - d; i++) {
-            maxDiff = Math.max (maxDiff, jobDiff[i]);
-            int nextDayJob = solve (i + 1, jobDiff, d - 1, memo);
-            if (nextDayJob != Integer.MAX_VALUE) {
-                totalMinDiff = Math.min (totalMinDiff, maxDiff + nextDayJob);
+                int maxDiff = 0;
+
+                for (int j = i - 1; j >= day - 1; j--) {
+                    maxDiff = Math.max (maxDiff, jobDifficulty[j]);   // current day
+
+                    memo[i][day] = Math.min (memo[i][day], memo[j][day - 1] + maxDiff);
+                }
             }
         }
 
-        return memo[idx][d] = totalMinDiff;
+        return memo[n][d];
     }
+
+    // private int solve (int idx, int[] jobDiff, int d, int[][] memo) {
+    //     int n = jobDiff.length;
+    //     if (d == 1) {
+    //         int max = 0;
+    //         for (int i = idx; i < n; i++) {
+    //             max = Math.max (max, jobDiff[i]);
+    //         }
+    //         return max;
+    //     }
+
+    //     if (memo[idx][d] != -1) return memo[idx][d];
+
+    //     int maxDiff = 0;
+    //     int totalMinDiff = Integer.MAX_VALUE;
+
+    //     for (int i = idx; i <= n - d; i++) {
+    //         maxDiff = Math.max (maxDiff, jobDiff[i]);
+    //         int nextDayJob = solve (i + 1, jobDiff, d - 1, memo);
+    //         if (nextDayJob != Integer.MAX_VALUE) {
+    //             totalMinDiff = Math.min (totalMinDiff, maxDiff + nextDayJob);
+    //         }
+    //     }
+
+    //     return memo[idx][d] = totalMinDiff;
+    // }
 }
 
 // Synced seamlessly with LeetHub Pro
