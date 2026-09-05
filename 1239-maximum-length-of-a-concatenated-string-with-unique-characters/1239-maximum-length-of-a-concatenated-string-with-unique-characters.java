@@ -20,17 +20,17 @@ class Solution {
     private int solve (int i, StringBuilder sb, List<String> arr) {
         if (i == arr.size()) return sb.length();
 
-        int ans = 0;
+        int take = 0;
         if (!hasDuplicate(sb, arr.get(i))) {
             int curr = sb.length();
             sb.append(arr.get(i));
-            ans = Math.max (ans, solve (i + 1, sb, arr));
+            take = solve (i + 1, sb, arr);
             sb.setLength(curr);
         }
 
-        ans = Math.max (ans, solve (i + 1, sb, arr));
+        int notTake = solve (i + 1, sb, arr);
 
-        return ans;
+        return Math.max (take, notTake);
     }
 
 }
