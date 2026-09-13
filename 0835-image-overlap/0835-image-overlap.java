@@ -12,7 +12,7 @@ class Solution {
                             if (img2[p][q] == 1) {
                                 int x = p - i;
                                 int y = q - j;
-                                int curr = x * 1000 + y;
+                                int curr = x * 100 + y;
                                 map.put(curr, map.getOrDefault(curr, 0) + 1);
                                 ans = Math.max (ans, map.get(curr));
                             }
