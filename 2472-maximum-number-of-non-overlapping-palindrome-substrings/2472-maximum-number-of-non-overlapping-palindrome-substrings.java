@@ -24,29 +24,28 @@ class Solution {
             }
         }
 
-        int dp[][] = new int[n][n];
-        for (int i = 0; i < n; i++) {
-            Arrays.fill(dp[i], -1);
-        }        
+        int dp[] = new int[n];
 
+        Arrays.fill(dp, -1);        
 
-        return solve (0, k - 1, s, k, isPalindrome, dp);
+        return solve (0, s, k, isPalindrome, dp);
     }
-    private int solve (int i, int j, String s, int k, boolean[][] isPalindrome, int dp[][]) {
-        if (j >= s.length()) {
+    private int solve (int i, String s, int k, boolean[][] isPalindrome, int dp[]) {
+        if (i >= s.length()) {
             return 0;
         }
 
-        if (dp[i][j] != -1) return dp[i][j];
-        int ans = 0;
+        if (dp[i] != -1) return dp[i];
 
-        if (isPalindrome[i][j]) {
-            ans = 1 + solve(j + 1, j + 1 + k - 1, s, k, isPalindrome, dp);
+        int ans = solve (i + 1, s, k, isPalindrome, dp);
+
+        for (int j = i + k - 1; j < s.length(); j++) {
+            if (isPalindrome[i][j]) {
+                ans = Math.max (ans, 1 + solve (j + 1, s, k, isPalindrome, dp));
+            }
         }
 
-        ans = Math.max(ans, Math.max (solve(i, j + 1, s, k, isPalindrome, dp), solve (i + 1, j + 1, s, k, isPalindrome, dp)));
-
-        return dp[i][j] = ans;
+        return dp[i] = ans;
     }
 }
 
