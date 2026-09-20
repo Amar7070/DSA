@@ -15,25 +15,29 @@
  */
 class Solution {
     public String tree2str(TreeNode root) {
-        if (root == null) return  "";
+        StringBuilder sb = new StringBuilder();
 
-        String ans = String.valueOf(root.val); 
-        String left = tree2str(root.left);
-        String right = tree2str(root.right);
+        solve (root, sb);
 
-        if (root.left == null && root.right == null) {
-            return ans;
+        return sb.toString();
+    }
+
+    private void solve (TreeNode root, StringBuilder sb) {
+        if (root == null) return;
+
+        sb.append(root.val);
+
+        if(root.left != null || root.right != null) {
+            sb.append("(");
+            solve (root.left, sb);
+            sb.append(")");
         }
 
-        if (root.left == null) {
-            return ans + "()" + "(" + right + ")";
+        if (root.right != null) {
+            sb.append("(");
+            solve (root.right, sb);
+            sb.append(")");
         }
-
-        if (root.right == null) {
-            return ans + "(" + left + ")";
-        }
-
-        return ans + "(" + left + ")" + "(" + right + ")";
     }
 }
 
