@@ -1,29 +1,18 @@
 class Solution {
     public int partitionString(String s) {
-        int n = s.length();
-        char chars[] = s.toCharArray();
-
-        boolean seen[] = new boolean[26];
-
+        boolean[] seen = new boolean[26];
         int ans = 0;
 
-        for (int i = 0; i < n; i++) {
-            char ch = chars[i];
-            if (seen[ch - 'a']) {
+        for (char ch : s.toCharArray()) {
+            int idx = ch - 'a';
+            if (seen[idx]) {
                 ans++;
                 Arrays.fill(seen, false);
             }
-            seen[ch - 'a'] = true;
+            seen[idx] = true;
         }
 
-        for (int i = 0; i < 26; i++) {
-            if (seen[i]) {
-                ans++;
-                break;
-            }
-        }
-
-        return ans;
+        return s.isEmpty() ? 0 : ans + 1;
     }
 }
 
