@@ -8,6 +8,8 @@ class Solution {
                 if (Math.abs (a1 - a2) <= d) {
                     flag = true;
                 }
+
+                if (flag) break;
             }
 
             if (!flag) ans++;
